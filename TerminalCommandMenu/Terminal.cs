@@ -12,11 +12,6 @@ namespace TerminalCommandMenu
             Console.Write(text);
         }
 
-        public void WriteLine(string text)
-        {
-            Console.WriteLine(text);
-        }
-
         public string? Read()
         {
             return Console.ReadLine();
