@@ -7,7 +7,9 @@ namespace TerminalCommandMenu.Abstractions
     public interface ITerminal
     {
         void Write(string text);
-        
-        string Read();
+
+        void WriteLine(string text);
+
+        string? Read();
     }
 }
