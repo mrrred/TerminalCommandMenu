@@ -16,7 +16,7 @@ namespace TerminalCommandMenu
 
         public void NotifyOnError(string message)
         {
-            _writer.Write(message);
+            _writer.Write(message + "\n");
         }
     }
 }
