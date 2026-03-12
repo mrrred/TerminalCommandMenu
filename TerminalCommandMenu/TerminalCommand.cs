@@ -23,7 +23,7 @@ namespace TerminalCommandMenu
 
         public TerminalCommand(string title, Action<string[]> executeAction, Func<bool>? canExecute = null)
         {
-
+            Title = title;
 
             _executeAction = executeAction;
             _canExecute = canExecute ?? (() => true);

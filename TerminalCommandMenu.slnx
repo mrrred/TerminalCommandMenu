@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="TerminalCommandMenu/TerminalCommandMenu.csproj" />
+  <Project Path="Tests/Tests.csproj" Id="0fe297f7-d40e-421d-8a8c-2fbfcbfe5c14" />
 </Solution>
