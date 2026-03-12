@@ -16,7 +16,7 @@ namespace TerminalCommandMenu
             if (parseString.Length == 0) throw new ArgumentException("Input string is incorrect", input);
 
             return (parseString[0],  parseString.Length > 1 
-                ? string.Concat(parseString[1..]) : "");
+                ? string.Join(' ', parseString[1..]) : "");
         }
     }
 }
