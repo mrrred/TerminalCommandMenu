@@ -6,9 +6,11 @@
 
         event EventHandler CanExecuteChanged { add { } remove { } }
 
-        bool TryExecute(string arguments);
+        bool TryParseArguments(string arguments, out string[] parseArguments);
 
         bool CanExecute();
+
+        void Execute(string[] arguments);
 
     }
 }
