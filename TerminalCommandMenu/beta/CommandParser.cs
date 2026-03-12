@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using TerminalCommandMenu.Abstractions;
 
-namespace TerminalCommandMenu
+namespace TerminalCommandMenub
 {
     public class CommandParser : ICommandParser
     {
-        public (string Command, string arguments) Parse(string input)
+        public (string Command, string[] arguments) Parse(string input)
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace("Input string is null or white space", input);
 
@@ -15,8 +15,7 @@ namespace TerminalCommandMenu
 
             if (parseString.Length == 0) throw new ArgumentException("Input string is incorrect", input);
 
-            return (parseString[0],  parseString.Length > 1 
-                ? string.Concat(parseString[1..]) : "");
+            return (parseString[0], parseString.Length > 1 ? parseString[1..] : []);
         }
     }
 }

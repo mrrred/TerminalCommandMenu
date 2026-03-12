@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TerminalCommandMenu.Abstractions;
 
-namespace TerminalCommandMenu
+namespace TerminalCommandMenub
 {
     public class ErrorSender : IErrorSender
     {

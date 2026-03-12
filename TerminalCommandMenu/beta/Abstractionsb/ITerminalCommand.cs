@@ -1,4 +1,8 @@
-﻿namespace TerminalCommandMenu.Abstractions
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TerminalCommandMenu.Abstractionsb
 {
     public interface ITerminalCommand
     {
@@ -6,9 +10,8 @@
 
         event EventHandler CanExecuteChanged { add { } remove { } }
 
-        bool TryExecute(string arguments);
+        void Execute(string[] arguments);
 
         bool CanExecute();
-
     }
 }
