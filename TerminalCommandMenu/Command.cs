@@ -6,14 +6,14 @@ namespace TerminalCommandMenu
     {
         Action<string[]> _action;
 
-        public Command()
+        public Command(Action<string[]> action)
         {
-            
+            _action = action;
         }
 
         public void Execute(string[] arguments)
         {
-            
+            _action(arguments);
         }
     }
 }
