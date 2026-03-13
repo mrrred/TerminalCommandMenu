@@ -66,15 +66,33 @@ namespace TerminalCommandMenu
                     continue;
                 }
 
-                // Add check redefinition command
+                int countOfReflectionTryParse = 0;
+                ITerminalCommand comm = _commands[command][0];
+                string[] parseCommands = [];
 
-                var comm = _commands[command][0];
+                foreach (var a in _commands[command])
+                {
+                    if (a.TryParseArguments(arguments, out parseCommands))
+                    {
+                        countOfReflectionTryParse++;
+                        comm = a;
+                    }
 
-                string[] parseCommands;
+                    if (countOfReflectionTryParse > 1)
+                    {
+                        break;
+                    }
+                }
 
-                if (!comm.TryParseArguments(arguments, out parseCommands))
+                if (countOfReflectionTryParse == 0)
                 {
                     _errorSender.NotifyOnError("Arguments is incorrect.");
+                    continue;
+                }
+
+                if (countOfReflectionTryParse > 1)
+                {
+                    _errorSender.NotifyOnError("Incorect command syntaxys. Some command can be call.");
                     continue;
                 }
 
