@@ -149,14 +149,19 @@ namespace TerminalCommandMenu
             {
                 char c = input[index];
 
-                if (IsOpen(c))
-                    depth++;
-
-                else if (IsClose(c))
-                    depth--;
-
-                else if (c == delimiter && depth == 0)
+                if (c == delimiter && depth == 0)
                     break;
+
+                if (IsOpen(c))
+                {
+                    depth++;
+                }
+                else if (IsClose(c))
+                {
+                    depth--;
+                    if (depth < 0)
+                        throw new Exception("Unbalanced brackets");
+                }
 
                 index++;
             }
