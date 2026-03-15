@@ -30,7 +30,7 @@ namespace Prog
             ITerminalCommand command3 = new TerminalCommand("Command3", argumentParser, comm3);
             ITerminalCommand exitCommand = new TerminalCommand("Exit", argumentParser, exitComm);
 
-            IArgumentParser formatParser = new ArgumentFormatParser("%a(%a)");
+            IArgumentParser formatParser = new ArgumentFormatParser("%a(%w)");
             ICommand<string[]> comm4 = new Command((string[] x) => { terminal.Write($"{x[0]}|{x[1]}" + "\n"); });
             ITerminalCommand commandWithFormatParser = new TerminalCommand("Command4", formatParser, comm4);
 
