@@ -9,13 +9,13 @@ namespace TerminalCommandMenu
     {
         public string Title { get; }
 
-        private readonly IArgumentParser _argumentParser;
+        private readonly IArgumentParser? _argumentParser;
         private readonly ICommand<string[]> _command;
 
         public event EventHandler CanExecuteChanged { add { } remove { } }
 
         public TerminalCommand(string title, 
-            IArgumentParser argumentParser, ICommand<string[]> command)
+            IArgumentParser? argumentParser, ICommand<string[]> command)
         {
             Title = title;
 
@@ -27,6 +27,20 @@ namespace TerminalCommandMenu
 
         public bool TryParseArguments(string arguments, out string[] parseArguments)
         {
+            if (_argumentParser == null)
+            {
+                parseArguments = [];
+
+                if (arguments == null || arguments == string.Empty)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
             string[] result;
 
             if (_argumentParser.TryParse(arguments, out result))
