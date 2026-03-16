@@ -9,9 +9,10 @@ namespace TerminalCommandMenu
     {
         private bool _isTerminalActive = false;
         private Dictionary<string, List<ITerminalCommand>> _commands = [];
-        private ITerminal _terminal;
         private ICommandParser _commandParser;
-        private IErrorSender _errorSender;
+
+        protected readonly ITerminal _terminal;
+        protected readonly IErrorSender _errorSender;
 
         private string Title { get; set {
                 ArgumentException.ThrowIfNullOrEmpty(value, nameof(Title));
@@ -78,7 +79,7 @@ namespace TerminalCommandMenu
                         comm = a;
                     }
 
-                    if (countOfReflectionTryParse > 1)
+                    if (countOfReflectionTryParse > 0)
                     {
                         break;
                     }

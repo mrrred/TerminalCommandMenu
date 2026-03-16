@@ -4,17 +4,14 @@ using System.Text;
 
 namespace TerminalCommandMenu
 {
-    using System;
-    using System.Collections.Generic;
-
     public static class FormatParser
     {
         private static readonly HashSet<char> Separators = new HashSet<char>
-            {
-                '(', ')', '[', ']', '{', '}', '<', '>',
-                '/', '\\', '|', ',', '.', ':', ';',
-                '-', '+', '*', '=', '_'
-            };
+        {
+            '(', ')', '[', ']', '{', '}', '<', '>',
+            '/', '\\', '|', ',', '.', ':', ';',
+            '-', '+', '*', '=', '_'
+        };
 
         public static string[] Parse(string format, string input)
         {
@@ -45,6 +42,20 @@ namespace TerminalCommandMenu
                         char? nextDelimiter = GetNextDelimiter(format, fi);
 
                         string arg = ReadArgument(
+                            input,
+                            ref ii,
+                            nextDelimiter
+                        );
+
+                        result.Add(arg);
+                    }
+                    else if (spec == 'w')
+                    {
+                        fi++;
+
+                        char? nextDelimiter = GetNextDelimiter(format, fi);
+
+                        string arg = ReadWordArgument(
                             input,
                             ref ii,
                             nextDelimiter
@@ -96,13 +107,15 @@ namespace TerminalCommandMenu
 
                     char s = format[i + 1];
 
-                    if (s != 'a' && s != 's')
+                    if (s != 'a' && s != 's' && s != 'w')
                         throw new Exception("Invalid specifier");
 
-                    if (s == 'a' && lastWasArg)
-                        throw new Exception("Cannot use %a%a");
+                    bool isArg = (s == 'a' || s == 'w');
 
-                    lastWasArg = s == 'a';
+                    if (isArg && lastWasArg)
+                        throw new Exception("Cannot use two arguments in a row");
+
+                    lastWasArg = isArg;
 
                     i++;
                 }
@@ -162,6 +175,36 @@ namespace TerminalCommandMenu
                     if (depth < 0)
                         throw new Exception("Unbalanced brackets");
                 }
+
+                index++;
+            }
+
+            return input.Substring(start, index - start);
+        }
+
+        private static string ReadWordArgument(
+            string input,
+            ref int index,
+            char? delimiter
+        )
+        {
+            int start = index;
+
+            if (delimiter == null)
+            {
+                index = input.Length;
+                return input.Substring(start);
+            }
+
+            while (index < input.Length)
+            {
+                char c = input[index];
+
+                if (c == delimiter)
+                    break;
+
+                if (IsOpen(c) || IsClose(c))
+                    throw new Exception("Nested brackets not allowed in %w");
 
                 index++;
             }
