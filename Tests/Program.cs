@@ -34,12 +34,17 @@ namespace Prog
             ICommand<string[]> comm4 = new Command((string[] x) => { terminal.Write($"{x[0]}|{x[1]}" + "\n"); });
             ITerminalCommand commandWithFormatParser = new TerminalCommand("Command4", formatParser, comm4);
 
+            IArgumentParser formatParserRef = new ArgumentFormatParser("%a(%w(%w))");
+            ICommand<string[]> comm4Ref = new Command((string[] x) => { terminal.Write($"{x[0]}|{x[1]}|{x[2]}" + "\n"); });
+            ITerminalCommand commandWithFormatParserRef = new TerminalCommand("Command4", formatParserRef, comm4Ref);
+
             terminalInputer.RegisterCommand(command1);
             terminalInputer.RegisterCommand(command2);
             terminalInputer.RegisterCommand(command3);
             terminalInputer.RegisterCommand(exitCommand);
 
             terminalInputer.RegisterCommand(commandWithFormatParser);
+            terminalInputer.RegisterCommand(commandWithFormatParserRef);
 
             terminalInputer.Show();
         }

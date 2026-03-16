@@ -79,7 +79,7 @@ namespace TerminalCommandMenu
                         comm = a;
                     }
 
-                    if (countOfReflectionTryParse > 1)
+                    if (countOfReflectionTryParse > 0)
                     {
                         break;
                     }
